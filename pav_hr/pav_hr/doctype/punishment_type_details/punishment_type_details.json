@@ -1,0 +1,64 @@
+{
+ "creation": "2021-05-20 14:46:38.919829",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "punishment_level",
+  "punishment_type",
+  "column_break_2",
+  "deduction",
+  "procedure"
+ ],
+ "fields": [
+  {
+   "fieldname": "punishment_level",
+   "fieldtype": "Select",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Punishment Level",
+   "options": "\n1\n2\n3\n4\n5\n6\n7",
+   "reqd": 1
+  },
+  {
+   "fieldname": "punishment_type",
+   "fieldtype": "Select",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Punishment Type",
+   "options": "Procedure\nDeduction",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.punishment_type==\"Deduction\"",
+   "fieldname": "deduction",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Deduction",
+   "precision": "2"
+  },
+  {
+   "depends_on": "eval:doc.punishment_type==\"Procedure\"",
+   "fieldname": "procedure",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Procedure",
+   "options": "Attention\nWritten Warning\nTemporary Expulsion\nPermanent Expulsion"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-05-20 17:11:18.736633",
+ "modified_by": "Administrator",
+ "module": "PAV HR",
+ "name": "Punishment Type Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,0 +1,110 @@
+{
+ "autoname": "field:type",
+ "creation": "2021-05-20 14:51:58.757948",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "type",
+  "without_level",
+  "punishment_details_section",
+  "punishment_details",
+  "punishment_type",
+  "deduction",
+  "procedure"
+ ],
+ "fields": [
+  {
+   "fieldname": "type",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Punishment Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "without_level",
+   "fieldtype": "Check",
+   "label": "Without Level"
+  },
+  {
+   "depends_on": "eval:doc.without_level==0",
+   "fieldname": "punishment_details",
+   "fieldtype": "Table",
+   "label": "Punishment Details",
+   "options": "Punishment Type Details"
+  },
+  {
+   "fieldname": "punishment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Punishment Details"
+  },
+  {
+   "depends_on": "eval:doc.without_level==1",
+   "fieldname": "punishment_type",
+   "fieldtype": "Select",
+   "label": "Punishment Type",
+   "options": "Procedure\nDeduction"
+  },
+  {
+   "depends_on": "eval:eval:doc.without_level==1 && doc.punishment_type==\"Deduction\" ",
+   "fieldname": "deduction",
+   "fieldtype": "Float",
+   "label": "Deduction"
+  },
+  {
+   "depends_on": "eval:eval:doc.without_level==1 && doc.punishment_type==\"Procedure\"",
+   "fieldname": "procedure",
+   "fieldtype": "Select",
+   "label": "Procedure",
+   "options": "Attention\nWritten Warning\nTemporary Expulsion\nPermanent Expulsion"
+  }
+ ],
+ "modified": "2021-05-20 15:23:44.777621",
+ "modified_by": "Administrator",
+ "module": "PAV HR",
+ "name": "Employee Punishment Type",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
