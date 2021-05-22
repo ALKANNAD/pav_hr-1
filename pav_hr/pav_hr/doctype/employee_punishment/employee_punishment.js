@@ -14,27 +14,14 @@ frappe.ui.form.on('Employee Punishment', {
 	refresh(frm){
 		frm.set_df_property("punishment_level", "read_only", 1);
 	},
-	validate(frm){
-		frappe.call({
-			method: "validate_duplcate",
-			doc: frm.doc,
-			callback: function(r) {
-				if(r.message){
-					frm.set_value('type', null);
-					frappe.msgprint(__(`There is draft Employee Punshment with same employye ${r.message.employee_name} and type ${r.message.type} need to be saved first ${r.message.name}`));
-					frappe.validated = false;
-				}		
-			}
-		}); 
-
-	},
 	type(frm) {
 		if(frm.doc.type == null){
+			frm.set_value('employee_punishment', null);
+			frm.set_value('last_punishment_level', null);
 			frm.set_value('punishment_level', null);
 			frm.set_value('punishment_type', null);
 			frm.set_value('deduction', null);
 			frm.set_value('procedure', null);
-			frm.set_value('last_punishment_level', null);
 			return;
 		}
 		if(frm.doc.employee == null){
@@ -59,29 +46,43 @@ frappe.ui.form.on('Employee Punishment', {
 				cur_frm.cscript.typeCallback(frm, r.message);				
 			}
 		});  
-	}
+	},
 });
 
 cur_frm.cscript.typeCallback = function(frm, message){
 	console.log(message);
 	if(message == null){
+		frm.set_value('last_punishment_level', null);
+		frm.set_value('employee_punishment', null);
 		frm.set_value('punishment_level', null);
 		frm.set_value('punishment_type', null);
 		frm.set_value('deduction', null);
 		frm.set_value('procedure', null);
-		frm.set_value('last_punishment_level', null);
 		return;
 	}
+
+	if(message.last_punishment_level == 0 )
+		message.last_punishment_level = "0";
 
 	if(frm.doc.without_level == 0)
 		frm.set_value('punishment_level', message.punishment_level);
 	else
 		frm.set_value('punishment_level', null);
 
+	frm.set_value('employee_punishment', message.employee_punishment);
+	frm.set_value('last_punishment_level', message.last_punishment_level);
+
 	frm.set_value('punishment_type', message.punishment_type);
 	frm.set_value('procedure', message.procedure);
 	frm.set_value('deduction', message.deduction);
-	if(message.last_punishment_level == 0 )
-		message.last_punishment_level = "0";
-	frm.set_value('last_punishment_level', message.last_punishment_level);
+
+	if(message.is_editable == 0){
+		frm.set_df_property("punishment_type", "read_only", 1);
+		frm.set_df_property("deduction", "read_only", 1);
+		frm.set_df_property("procedure", "read_only", 1);
+		}else{
+			frm.set_df_property("punishment_type", "read_only", 0);
+			frm.set_df_property("deduction", "read_only", 0);
+			frm.set_df_property("procedure", "read_only", 0);
+	}
 }

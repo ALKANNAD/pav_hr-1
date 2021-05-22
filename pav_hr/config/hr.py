@@ -4,7 +4,7 @@ from frappe import _
 def get_data():
 	return [
 		{
-			"label": _("Performance"),
+			"label": _("Punishment"),
 			"items": [
 				{
 					"type": "doctype",

@@ -44,14 +44,14 @@
   {
    "depends_on": "eval:doc.punishment_type==\"Procedure\"",
    "fieldname": "procedure",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Procedure",
-   "options": "Attention\nWritten Warning\nTemporary Expulsion\nPermanent Expulsion"
+   "options": "Employee Punishment Procedure"
   }
  ],
  "istable": 1,
- "modified": "2021-05-20 17:11:18.736633",
+ "modified": "2021-05-22 13:22:29.362527",
  "modified_by": "Administrator",
  "module": "PAV HR",
  "name": "Punishment Type Details",
